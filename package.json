@@ -1,0 +1,74 @@
+{
+  "name": "ipc-viewer",
+  "displayName": "IPC File Viewer",
+  "description": "View Arrow IPC file schema and preview",
+  "version": "0.1.2",
+  "publisher": "ranfeldesh",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ranfeldesh/ipc-viewer.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Data Science",
+    "Visualization"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCustomEditor:ipcViewer.ipcFile"
+  ],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "ipcViewer.ipcFile",
+        "displayName": "IPC File Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.ipc"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "configuration": {
+      "title": "IPC Viewer",
+      "properties": {
+        "ipcViewer.previewRows": {
+          "type": "number",
+          "default": 5,
+          "description": "Number of rows to show in preview"
+        },
+        "ipcViewer.statsThresholdMB": {
+          "type": "number",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Files larger than this (in MB) will only show null counts (not min/max)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "compile": "npm run esbuild-base -- --sourcemap",
+    "watch": "npm run esbuild-base -- --sourcemap --watch",
+    "package": "vsce package",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "apache-arrow": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.3.0",
+    "vitest": "^2.1.0"
+  }
+}

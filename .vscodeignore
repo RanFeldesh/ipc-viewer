@@ -1,0 +1,13 @@
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+tsconfig.json
+vitest.config.ts
+**/*.ts
+**/__pycache__/**
+node_modules/**
+.git/**
+.claude/**
+releases/**
+*.vsix
